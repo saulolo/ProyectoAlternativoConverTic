@@ -1,13 +1,20 @@
-const app = require ("./app");                       //[12], [13] y [14]    
+const app=require("./app")  //[12], [13] y [14]  
+const connectDatabase = require("./config/database"); //[49]
 
-//Settear el archivo de configuración
-const dotenv = require("dotenv");                    //[17] 
-dotenv.config({path: 'back/config/config.env'})      //[18] 
+//Setear el archivo de configuración
+const dotenv=require("dotenv"); //[17] 
+dotenv.config({path: 'back/config/config.env'}) //[18] 
 
-//Llamemos el server
-const server = app.listen(process.env.PORT, () => {  //[15]
-    console.log(`Servidor iniciando en el puerto: ${process.env.PORT} en modo: ${process.env. NODE_ENV}`)                                      //[16]
-})                                                   //[19]
+//Configurar BD [48] importo el metodo creado y este me trae la importación [49]
+connectDatabase();
+
+
+//Llamemos al server [15]
+const server=app.listen(process.env.PORT, () => {
+    console.log(`Servidor iniciado en el puerto: ${process.env.PORT} en modo: ${process.env.NODE_ENV}`)  //[16]
+})  //[19]
+
+//[50]
 
 
                                                      

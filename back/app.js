@@ -1,5 +1,5 @@
 //[7]
-const express = require("express"); //[8]
+const express=require("express"); //[8]
 const app = express();              //[9] 
 
 app.use(express.json());  //[35] 
@@ -9,10 +9,12 @@ app.use('/api',productos)  //[37]
 
 //[38] 
 
-module.exports = app;     //[10] 
+module.exports=app;     //[10] 
 
 //[11] 
 //[39] 
 //[40] 
-//[41] Creamos otra terminal y escribimos el siguiente comando: 
+//[41] 
+
+//[42] 
 
