@@ -3,7 +3,7 @@ const connectDatabase = require("./config/database"); //[49]
 
 //Setear el archivo de configuración
 const dotenv=require("dotenv"); //[17] 
-dotenv.config({path: 'back/config/config.env'}) //[18] 
+dotenv.config({path:'back/config/config.env'}) //[18] 
 
 //Configurar BD [48] importo el metodo creado y este me trae la importación [49]
 connectDatabase();
