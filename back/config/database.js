@@ -1,7 +1,9 @@
 const mongoose=require("mongoose"); //[43] y [44]  
 
+
+//Cadena de conexión
 const connectDatabase = () => {
-    mongoose.connect(process.env.DB_URI, {
+    mongoose.connect(process.env.DB_LOCAL_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true //[45]
     }).then(con => {
@@ -12,8 +14,6 @@ const connectDatabase = () => {
 }
 
 module.exports=connectDatabase;  //[47]
-
-
 
 
 
