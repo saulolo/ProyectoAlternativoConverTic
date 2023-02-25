@@ -1,12 +1,24 @@
 import './App.css';
 import React from 'react';
+import Header from './components/layout/Header';
+import { Footer } from './components/layout/Footer';
 
-//[112] y [115]
+//[112], [115] y [129]
 function App() {
   return (
     <div className="App">
-      <h1>Tienda de Moda ConverTic Shop</h1>
-      <img src="./images/logoBlackOriginal.png" alt='Aqui va el logo'></img>  
+      <Header/>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+      <center>Contenido aqui</center>
+
+      <Footer/>
     </div>
   );
 }
