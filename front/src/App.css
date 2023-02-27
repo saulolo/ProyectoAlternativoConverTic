@@ -355,6 +355,16 @@ footer {
 
 /* Header User Profile */
 
+h5, h6{
+  text-align: center;
+  color: white;
+  font-family: 'Montserrat';
+  text-transform: uppercase;
+  margin: 0 1.5%;
+}
+
+
+
 .avatar-nav {
   margin-right: 0.6rem;
   height: 2.2rem;

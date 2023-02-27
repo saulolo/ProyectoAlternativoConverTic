@@ -38,7 +38,7 @@ const productosSchema=mongoose.Schema({   //[52]
         require:[true,"Por favor seleccione la categoria del producto."],
         enum:{ //[60.1] 
               values:[  //[60.2] 
-                "Chamarras, Busos y Abrigos",
+                "Chamarras, Buzos y Abrigos",
                 "Camisas y Camisetas",
                 "Vestidos, Pantalones y Jeans",
                 "Calzado",
