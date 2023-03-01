@@ -1,136 +1,87 @@
 import React, { Fragment, useEffect } from "react";
 import MetaData from "./layout/MetaData";
-import {useDispatch} from 'react-redux';  //[168]
+import { useDispatch, useSelector } from "react-redux"; //[168]
 import { getProducts } from "../actions/productActions"; //[169]
+import { Link } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 export const Home = () => {
+  const { loading, productos, error } = useSelector((state) => state.products); //[171]
+  const alert= useAlert();
+
   const dispatch = useDispatch();
   useEffect(() => {
+    if (error) {
+      return alert.error(error)
+    }
     dispatch(getProducts());
-  }, [dispatch])
+    alert.success("OK")
+  }, [dispatch]);
 
-  
   return (
     <Fragment>
-        <MetaData title="Lo mejor de la moda a tu medida"></MetaData>
-      <h1 id="encabezado_productos">Ultimos Productos</h1>
-      <section id="productos" className="container mt-5">
-        <div className="row">
-            {/*Producto 1*/}
-          <div className="col-sm-12 col-md-6 col-lg-3 my-3">
-            <div className="card p-3 rounded">
-              <img
-                className="card-img-top mx-auto"
-                src="./images/buso1.png"
-                alt="Imagen de Buso"
-              ></img>
-              <div className="card-body d-flex flex-column">
-                <h5 id="titulo_producto">
-                  <a href="http://localhost:3000/"> Buso Hoodie Negro Para Hombre</a>
-                </h5>
-                <div className="rating mt-auto">
-                  <div className="rating-outer">
-                    <div className="rating-inner"></div>
+      {loading ? (
+        <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+      ) : (
+        <Fragment>
+          <MetaData title="Lo mejor de la moda a tu medida"></MetaData>
+          <h1 id="encabezado_productos">Ultimos Productos</h1>
+          <section id="productos" className="container mt-5">
+            <div className="row">
+              {/*Ingreso de producto*/}
+              {productos &&
+                productos.map((
+                  producto //[172]
+                ) => (
+                  <div
+                    key={producto._id}
+                    className="col-sm-12 col-md-6 col-lg-3 my-3"
+                  >
+                    {" "}
+                    {/*[173]*/}
+                    <div className="card p-3 rounded">
+                      <img
+                        className="card-img-top mx-auto"
+                        src={producto.imagen[0].url} //[174] Estableco la url del producto a guardar
+                        alt={producto.imagen[0].public_id}
+                      ></img>
+                      <div className="card-body d-flex flex-column">
+                        <h5 id="titulo_producto">
+                          <Link to={`/producto/${producto._id}`}>
+                            {" "}
+                            {producto.nombre}
+                          </Link>
+                        </h5>
+                        <div className="rating mt-auto">
+                          <div className="rating-outer">
+                            <div
+                              className="rating-inner"
+                              style={{
+                                width: `${(producto.calificacion / 5) * 100}%`,
+                              }}
+                            ></div>
+                          </div>
+                          <span id="No_de_opiniones">
+                            {" "}
+                            {producto.numCalificaciones} Reviews
+                          </span>
+                        </div>
+                        <p className="card-text">${producto.precio}</p>
+                        <Link
+                          to={`/producto/${producto._id}`}
+                          id="view_btn"
+                          className="btn btn-block"
+                        >
+                          Ver detalle
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <span id="No_de_opiniones"> 5 reviews</span>
-                </div>
-                <p className="card-text">$ 119.990</p>
-                <a
-                  href="http://localhost:3000/"
-                  id="view_btn"
-                  className="btn btn-block">Ver detalle
-                </a>
-              </div>
+                ))}
             </div>
-          </div>
-
-             {/*Producto 2*/}
-             <div className="col-sm-12 col-md-6 col-lg-3 my-3">
-            <div className="card p-3 rounded">
-              <img
-                className="card-img-top mx-auto"
-                src="./images/camisa1.png"
-                alt="Imagen de Camisa"
-              ></img>
-              <div className="card-body d-flex flex-column">
-                <h5 id="titulo_producto">
-                  <a href="http://localhost:3000/"> Camisa Manga Corta para Hombre</a>
-                </h5>
-                <div className='rating mt-auto'>
-                  <div className="rating-outer">
-                    <div className="rating-inner"></div>
-                  </div>
-                  <span id="No_de_opiniones"> 2 reviews</span>
-                </div>
-                <p className="card-text">$ 61.990</p>
-                <a
-                  href="http://localhost:3000/"
-                  id="view_btn"
-                  className="btn btn-block">Ver detalle
-                </a>
-              </div>
-            </div>
-          </div>
-
-           {/*Producto 3*/}
-           <div className="col-sm-12 col-md-6 col-lg-3 my-3">
-            <div className="card p-3 rounded">
-              <img
-                className="card-img-top mx-auto"
-                src="./images/vestido1.png"
-                alt="Imagen de Vestido"
-              ></img>
-              <div className="card-body d-flex flex-column">
-                <h5 id="titulo_producto">
-                  <a href="http://localhost:3000/"> Vestido Rosa Cuello Tortuga Para Mujer</a>
-                </h5>
-                <div className='rating mt-auto'>
-                  <div className="rating-outer">
-                    <div className="rating-inner"></div>
-                  </div>
-                  <span id="No_de_opiniones"> 12 reviews</span>
-                </div>
-                <p className="card-text">$ 39.990</p>
-                <a
-                  href="http://localhost:3000/"
-                  id="view_btn"
-                  className="btn btn-block">Ver detalle
-                </a>
-              </div>
-            </div>
-          </div>
-
-            {/*Producto 4*/}
-            <div className="col-sm-12 col-md-6 col-lg-3 my-3">
-            <div className="card p-3 rounded">
-              <img
-                className="card-img-top mx-auto"
-                src="./images/botas1.png"
-                alt="Imagen de Botas"
-              ></img>
-              <div className="card-body d-flex flex-column">
-                <h5 id="titulo_producto">
-                  <a href="http://localhost:3000/"> Botas Formales En Cuero Para Hombre</a>
-                </h5>
-                <div className='rating mt-auto'>
-                  <div className="rating-outer">
-                    <div className="rating-inner"></div>
-                  </div>
-                  <span id="No_de_opiniones"> 7 reviews</span>
-                </div>
-                <p className="card-text">$ 269.990</p>
-                <a
-                  href="http://localhost:3000/"
-                  id="view_btn"
-                  className="btn btn-block">Ver detalle
-                </a>
-              </div>
-            </div>
-          </div>
-          
-
-        </div>
-      </section>
+          </section>
+        </Fragment>
+      )}
     </Fragment>
   );
 };

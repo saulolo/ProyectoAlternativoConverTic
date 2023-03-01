@@ -6,6 +6,12 @@ const fetch = (url) => import('node-fetch').then(({ default: fetch }) => fetch(u
 /* VER TODOS LOS PRODUCTOS */
 exports.getProducts = async(req,res, next) => {  //[26] y [78]
     const productos=await producto.find();    //[79] 
+    if(!productos){
+        return res.status(404).json({
+            success: false,
+            error: true
+        })
+    }
     res.status(200).json({  //[27]
         success: true,
         cantidad: productos.length,  //[80] 
