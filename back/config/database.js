@@ -6,7 +6,7 @@ const mongoose=require("mongoose"); //[43] y [44]
 const connectDatabase = () => {
     mongoose.connect(process.env.DB_LOCAL_URI, {
         useNewUrlParser: true,
-        useUnifiedTopology: true, //[45]
+        useUnifiedTopology: true //[45]
         //useFindAndModify: false
     }).then(con => {
         console.log(`Base de datos mongo conectada con el servidor: ${con.connection.host}`)

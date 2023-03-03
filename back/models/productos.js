@@ -3,19 +3,19 @@ const mongoose=require("mongoose")    //[51]
 const productosSchema=mongoose.Schema({   //[52] 
     nombre:{          //[53]
         type:String,  //[53.1] 
-        require:[true,"Por favor registra el nombre del producto."], //[53.2]
+        required:[true,"Por favor registra el nombre del producto."], //[53.2]
         trim:true,  //[53.3]
-        maxLenght:[120,"EL nombre del producto no debe de exceder los 120 caracteres."]   //[53.4] 
+        maxLength:[120,"El nombre del producto no debe exceder los 120 caracteres."]   //[53.4] 
     },  
     precio:{   //[54] 
         type: Number, //[54.1] 
-        require:[true,"Por favor registre el precio del producto."],
-        maxLenght:[8, "El precio del producto no puede estar por encima de  99'999'999."],
+        required:[true,"Por favor registre el precio del producto."],
+        maxLength:[8, "El precio del producto no puede estar por encima de 99'999.999"],
         default: 0.0//[54.2] 
     },
     descripcion:{ //[55] 
         type:String,
-        require:[true,"Por favor registre una descripción para el producto."],
+        required:[true,"Por favor registre una descripción para el producto."]
     },
     calificacion:{  //[56] 
         type: Number,
@@ -25,17 +25,17 @@ const productosSchema=mongoose.Schema({   //[52]
         {   
             public_id:{   //[57.1] 
                 type:String,
-                require:true
+                required:true
             },
             url:{  //[59] 
                 type:String,
-                require:true
+                required:true
             }
         }
     ], //[60] 
      categoria:{
         type:String,
-        require:[true,"Por favor seleccione la categoria del producto."],
+        required:[true,"Por favor seleccione la categoria del producto."],
         enum:{ //[60.1] 
               values:[  //[60.2] 
                 "Chamarras, Buzos y Abrigos",
@@ -45,36 +45,36 @@ const productosSchema=mongoose.Schema({   //[52]
                 "Ropa interior",
                 "Bolsos y Maletas",
                 "Accesorios"
-              ]
+            ]
         }
     },
     vendedor:{  //[61] 
         type:String,
-        require:[true,"Por favor registre el vendedor del producto"]
+        required:[true,"Por favor registre el vendedor del producto"]
     },
     invetario:{  //[62] 
-        type:Number,
-        require:[true,"Por favor registre el stock del producto"],
-        maxLenght:[5,"Cantiad máxima del producto no se puede sobreasar 99999"],
-        default:0
+        type: Number,
+        required: [true,"Por favor registre el stock del producto"],
+        maxLength: [5,"Cantiad máxima del producto no puede sobreasar 99999"],
+        default: 0
     },
     numCalificaciones:{  //[63] 
         type:Number,
-        default:0,
+        default:0
     },
     opiniones:[//[64] 
         {
             nombreCliente:{
                 type:String,
-                require:true,  //[64.1] 
+                required:true  //[64.1] 
             },
             rating:{  //[64.2]
                 type:Number,
-                require:true
+                required:true
             },
-            comentarios:{ //[64.3] 
+            comentario:{ //[64.3] 
                 type:String,
-                require
+                required:true
             }
         }
     ], 

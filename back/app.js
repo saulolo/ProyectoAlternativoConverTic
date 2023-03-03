@@ -9,7 +9,7 @@ app.use('/api',productos)  //[37]
 
 //[38] 
 
-module.exports=app;     //[10] 
+module.exports=app   //[10] 
 
 //[11] 
 //[39] 
