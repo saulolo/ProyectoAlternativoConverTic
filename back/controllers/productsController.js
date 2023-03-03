@@ -1,10 +1,10 @@
-const producto = require("../models/productos"); //[69] 
+const producto=require("../models/productos") //[69] 
 const fetch = (url) => import('node-fetch').then(({ default: fetch }) => fetch(url));//[93]
 
 
 //[25]
-/* VER LISTA DE TODOS LOS PRODUCTOS */
-exports.getProducts = async (req,res, next) => {  //[26] y [78]
+/* VER TODOS LOS PRODUCTOS */
+exports.getProducts = async(req,res, next) => {  //[26] y [78]
     const productos=await producto.find();    //[79] 
     if(!productos){
         return res.status(404).json({
@@ -15,19 +15,19 @@ exports.getProducts = async (req,res, next) => {  //[26] y [78]
     res.status(200).json({  //[27]
         success: true,
         cantidad: productos.length,  //[80] 
-        products
+        productos
     })
 }  //[28]
 
 
 /* VER UN PRODUCTO POR ID */ //[81]
-exports.getProductById = async(req, res, next) => {  
-    const product = await producto.findById(req.params.id)  //[81.1]  
-    if (!product) {  //[81.2] 
+exports.getProductById = async(req,res, next) => {  
+    const product=await producto.findById(req.params.id);  //[81.1]  
+    console.log({product})
+    if(!product){  //[81.2] 
         return res.status(404).json({//[81.3] 
-            success: false, //[81.4] 
-            message: "No encontramos ese producto",  //[81.5] 
-            error: true
+            success:false, //[81.4] 
+            message:"No encontramos ese producto"  //[81.5] 
         })  
     }
     res.status(200).json({  //[81.6] 
@@ -40,9 +40,9 @@ exports.getProductById = async(req, res, next) => {
 
 //[84] Tipos de Variables
 /* ACTUALIZAR A UN PRODUCTO */  //[85]
-exports.updateProduct= async(req, res, next) => {
-    let product = await producto.findById(req.params.id)   //[85.1] 
-    if (!product) {   //[85.2] 
+exports.updateProduct= async(req,res, next) => {
+    let product=await producto.findById(req.params.id);   //[85.1] 
+    if(!product){   //[85.2] 
         return res.status(404).json({
             success:false, 
             message:"No encontramos ese producto"  
@@ -61,24 +61,24 @@ exports.updateProduct= async(req, res, next) => {
 
 
 /* ELIMINAR A UN PRODUCTO */ //[89]
-exports.deleteProduct= async(req, res, next) => {
-    const product = await producto.findById(req.params.id);   //[89.1] 
-    if (!product) {   
+exports.deleteProduct= async(req,res, next) => {
+    const product=await producto.findById(req.params.id);   //[89.1] 
+    if(!product){   
         return res.status(404).json({
-            success: false, 
-            message: "No encontramos ese producto"  
+            success:false, 
+            message:"No encontramos ese producto"  
         })
     }
     await product.remove();//[89.2] 
     res.status(200).json({ 
         success: true,
-        message: "Producto eliminado correctamente"
+        message:"Producto elimnado correctamente",
     })    
 }//[90] 
 
 
 /*CREAR PRODUCTO */  //api/productos  [68]
-exports.newProduct=async(req, res, next) => {  //[70]
+exports.newProduct=async(req,res, next) =>{  //[70]
     const product=await producto.create(req.body);  //[71]
       
     res.status(201).json({  //[72] 

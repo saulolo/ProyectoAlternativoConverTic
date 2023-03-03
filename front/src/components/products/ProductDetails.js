@@ -8,6 +8,7 @@ import { Carousel } from 'react-bootstrap'
 
 export const ProductDetails = () => {
   const {loading, error, product} = useSelector(state => state.productDetails)
+  console.log({product})
   const {id} = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -43,7 +44,7 @@ export const ProductDetails = () => {
 
   return (
     <Fragment>
-      {loading ? <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> : (
+      {loading || !product ? <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> : (
         <Fragment>
           <MetaData title={product.nombre}></MetaData>
           <div className='row d-flex justify-content-around'>
