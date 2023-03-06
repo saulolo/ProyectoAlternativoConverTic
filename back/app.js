@@ -1,13 +1,21 @@
 //[7]
 const express=require("express"); //[8]
 const app = express();              //[9] 
+const errorMiddleware= require("./middleware/errors")
 
+//Uso de constantes importadas
 app.use(express.json());  //[35] 
+
+//Importar rutas
 const productos=require("./routes/products")       //[36] 
+const usuarios=require("./routes/auth")
 
-app.use('/api',productos)  //[37] 
+app.use('/api',productos)  //[37] y [38]
+app.use('/api',usuarios)
 
-//[38] 
+
+//MiddleWares para manejar errores
+app.use(errorMiddleware)
 
 module.exports=app   //[10] 
 
