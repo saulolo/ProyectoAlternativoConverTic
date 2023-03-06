@@ -1,8 +1,8 @@
-import React from "react"
-import{Helmet} from 'react-helmet'
+import React from 'react'
+import {Helmet} from 'react-helmet'
 
 //[138]
-const MetaData = ({title}) =>{
+const MetaData = ({title}) => {
     return(
         <Helmet>
             <title>{`${title} - ConverTic Shop`}</title>
