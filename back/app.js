@@ -2,9 +2,11 @@
 const express=require("express"); //[8]
 const app = express();              //[9] 
 const errorMiddleware= require("./middleware/errors")
+const cookieParser = require("cookie-parser")
 
 //Uso de constantes importadas
 app.use(express.json());  //[35] 
+app.use(cookieParser());
 
 //Importar rutas
 const productos=require("./routes/products")       //[36] 

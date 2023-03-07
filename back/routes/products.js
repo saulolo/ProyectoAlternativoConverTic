@@ -6,9 +6,12 @@ const {getProducts,
     getProductById, 
     updateProduct, 
     deleteProduct
-} = require("../controllers/productsController")   //[31]
+} = require("../controllers/productsController");   //[31]
+const { isAuthenticatedUser, authorizeRole } = require("../middleware/auth");
 
-router.route('/productos').get(getProducts)    //[32] Ruta para ver productos
+
+//Probemos autenticación
+router.route('/productos').get(isAuthenticatedUser, authorizeRole("admin"), getProducts)    //[32] Ruta para ver productos
 router.route('/producto/nuevo').post(newProduct);  //[74] y [75]  Ruta para crear producto
 router.route('/producto/:id').get(getProductById); //[83] Ruta para consultar por id
 router.route('/producto/:id').put(updateProduct); //[87] Ruta para actualizar por id y [88]

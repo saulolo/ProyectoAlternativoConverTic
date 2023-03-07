@@ -1,6 +1,7 @@
 const User = require("../models/auth")
 const ErrorHandler= require("../utils/errorHandler")
 const catchAsyncErrors= require("../middleware/catchAsyncErrors");
+const tokenEnviado = require("../utils/jwtToken");
 
 //  REGISTRAR UN NUEVO USUARIO   /api/usuario/registro
 exports.registroUsuario= catchAsyncErrors(async (req, res, next) =>{
@@ -15,18 +16,12 @@ exports.registroUsuario= catchAsyncErrors(async (req, res, next) =>{
             url: "https://www.pngmart.com/files/21/Account-Avatar-Profile-PNG-Photo.png"
         }
     })
-    const token = user.getJwtToken();
 
-    
-    res.status(201).json({
-        success: true,
-        token,
-        user
-    })
+    tokenEnviado(user,201,res)
 })
 
 
-//INICIAR SESIÓN
+//INICIAR SESIÓN - LOGIN
 exports.loginUser = catchAsyncErrors(async (req, res, next) =>{
     const { email, password} = req.body;
 
@@ -48,15 +43,6 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) =>{
         return next(new ErrorHandler("Contraseña inválida", 401))
     }
 
-    const token = user.getJwtToken();
-
-    res.status(201).json({
-        success: true,
-        token,
-        user
-    })
-
-
-
+    tokenEnviado(user,200,res)
 
 })
