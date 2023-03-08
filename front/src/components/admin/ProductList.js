@@ -4,7 +4,7 @@ import { getProducts } from '../../actions/productActions'
 import { useAlert } from 'react-alert'
 import Sidebar from './Sidebar'
 import { MDBDataTable } from 'mdbreact'
-import  MetaData from '../layout/MetaData'
+import MetaData from '../layout/MetaData'
 
 
 
@@ -59,6 +59,7 @@ export const ProductList = () => {
             })
         })
     }
+    
         return data;
     }
 
