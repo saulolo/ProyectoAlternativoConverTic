@@ -16,7 +16,7 @@ export const Sidebar = () => {
                     className="fa fa-product-hunt"></i> Productos</a>
                     <ul className="collapse list-unstyled" id="productSubmenu">
                         <li>
-                            <Link to="/admin/listaProductos"><i className="fa fa-clipboard"></i> Lista de Productos</Link>
+                            <Link to="/admin/listaProductos"><i className="fa fa-clipboard"></i> Todos</Link>
                         </li>
                         <li>
                             <Link to="/"><i className="fa fa-plus"></i> Crear Producto</Link>

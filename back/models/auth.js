@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
-const jwt= require("jsonwebtoken") 
+const jwt= require("jsonwebtoken")
 const crypto= require("crypto")
 
 const usuarioSchema = new mongoose.Schema({
@@ -40,7 +40,6 @@ const usuarioSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-
     resetPasswordToken: String,
     resetPasswordExpire: Date
 })
@@ -54,7 +53,7 @@ usuarioSchema.pre("save", async function (next) {
 })
 
 //Decodificamos contraseña y comparamos
-usuarioSchema.methods.compararPass = async function(passDada){
+usuarioSchema.methods.compararPass = async function (passDada){
     return await bcrypt.compare(passDada, this.password)
 }
 
@@ -64,6 +63,21 @@ usuarioSchema.methods.getJwtToken = function () {
     return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_TIEMPO_EXPIRACION
     })
+}
+
+//Generar un token para reset de contraseña
+usuarioSchema.methods.genResetPasswordToken = function () {
+    const resetToken= crypto.randomBytes(20).toString('hex') 
+
+    //Hashear resetToken
+    this.resetPasswordToken= crypto.createHash("sha256").update(resetToken).digest('hex')
+    //settear resetToken
+    //this.resetPasswordToken= resetToken;
+
+    //Settear fecha de expiración del token
+    this.resetPasswordExpire= Date.now() + 30*60*1000 //El token dura solo 30 min
+
+    return resetToken
 }
 
 module.exports = mongoose.model("auth", usuarioSchema)
