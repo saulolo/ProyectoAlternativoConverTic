@@ -5,7 +5,10 @@ const {getProducts,
     newProduct, 
     getProductById, 
     updateProduct, 
-    deleteProduct
+    deleteProduct,
+    createProductReview,
+    getProductReviews,
+    deleteReview
 } = require("../controllers/productsController");   //[31]
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
@@ -17,6 +20,10 @@ router.route('/producto/:id').get(getProductById); //[83] Ruta para consultar po
 router.route('/producto/:id').put(isAuthenticatedUser, authorizeRoles("admin"), updateProduct); //[87] Ruta para actualizar por id y [88]
 router.route('/producto/:id').delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct) //[91] Ruta para eliminar por id
 
+//Rutas de Review
+router.route('/review').put(isAuthenticatedUser, createProductReview )
+router.route('/reviews').get(isAuthenticatedUser, getProductReviews )
+router.route('/reviews').delete(isAuthenticatedUser, deleteReview )
 module.exports=router;   //[33]
 
 //[34] 
