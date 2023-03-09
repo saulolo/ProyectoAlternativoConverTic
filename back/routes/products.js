@@ -23,7 +23,7 @@ router.route('/producto/:id').delete(isAuthenticatedUser, authorizeRoles("admin"
 //Rutas de Review
 router.route('/review').put(isAuthenticatedUser, createProductReview )
 router.route('/reviews').get(isAuthenticatedUser, getProductReviews )
-router.route('/reviews').delete(isAuthenticatedUser, deleteReview )
+router.route('/review').delete(isAuthenticatedUser, deleteReview )
 module.exports=router;   //[33]
 
 //[34] 

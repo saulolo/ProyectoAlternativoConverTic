@@ -1,5 +1,6 @@
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const producto = require("../models/productos"); //[69] 
+const APIFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 const fetch = (url) => import('node-fetch').then(({ default: fetch }) => fetch(url));//[93]
 
@@ -7,6 +8,29 @@ const fetch = (url) => import('node-fetch').then(({ default: fetch }) => fetch(u
 //[25]
 /* VER LA LISTA DE TODOS LOS PRODUCTOS */
 exports.getProducts = catchAsyncErrors(async(req, res, next) => {  //[26] y [78]
+    
+    //Paginación
+    const resPerPage = 4;
+    const productsCount = await producto.countDocuments();
+
+    const apiFeatures= new APIFeatures(producto.find(), req.query)
+        .search()
+        .filter()
+
+    let products= await apiFeatures.query;
+    let filteredProductsCount = products.length;
+    apiFeatures.pagination(resPerPage)
+    products=await apiFeatures.query.clone();
+
+    res.status(200).json({ 
+        success: true,
+        productsCount,
+        resPerPage,
+        filteredProductsCount,
+        products
+    })
+
+    
     const productos=await producto.find();    //[79] 
     
     if(!productos){  //[81.2] 
