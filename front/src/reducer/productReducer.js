@@ -11,7 +11,7 @@ import { ALL_PRODUCTS_REQUEST,
 
     //VER PRODUCTOS
 export const productReducer = (state ={products: []}, action)=> {  //[149.1] 
-    switch(action.type){ //[149.2] 
+    switch(action.type) { //[149.2] 
         case ALL_PRODUCTS_REQUEST: //[149.3] 
             return{
                 loading:true,
@@ -19,10 +19,12 @@ export const productReducer = (state ={products: []}, action)=> {  //[149.1]
             }
 
         case ALL_PRODUCTS_SUCCESS:  //[150]
-            return{
-                loading:false,
-                products: action.payload.productos, //[150.1]
-                cantidad: action.payload.cantidad //[150.2]
+            return {
+                loading: false,
+                products: action.payload.products, //[150.1]
+                cantidad: action.payload.cantidad, //[150.2]
+                resPerPage: action.payload.resPerPage,
+                filteredProductsCount: action.payload.filteredProductsCount
             }
 
         case ALL_PRODUCTS_FAIL: //[160]

@@ -26,17 +26,17 @@ export const Sidebar = () => {
 
                 {/*Botones de Pedidos*/}
                 <li>
-                    <Link to="/"><i className="fa fa-shopping-basket"></i> Pedidos</Link>
+                    <Link to="/orderList"><i className="fa fa-shopping-basket"></i> Pedidos</Link>
                 </li>
 
                 {/*Botones de Usuarios*/}
                 <li>
-                    <Link to="/"><i className="fa fa-users"></i> Usuarios</Link>
+                    <Link to="/admin/users"><i className="fa fa-users"></i> Usuarios</Link>
                 </li>
 
                 {/*Botones de Opiniones*/}
                 <li>
-                    <Link to="/"><i className="fa fa-star"></i> Opiniones</Link>
+                    <Link to="/admin/reviews"><i className="fa fa-star"></i> Opiniones</Link>
                 </li>
             </ul>
         </nav>

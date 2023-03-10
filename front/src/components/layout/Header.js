@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'  //[127]
 import "../../App.css"
 import { Link } from "react-router-dom"
+import { Search } from './Search'
 
 //[128]
 const Header = () => {
@@ -9,19 +10,14 @@ const Header = () => {
         <nav className='navbar row'>
             <div className='col-12 col-md-3'>
                 <div className='navbar-brand'>
-                    <img src="../images/logo.png" alt="ConvetTic Shop Logo"></img>
+                    <Link to="/" ><img src="../images/logo.png" alt="ConvetTic Shop Logo"></img></Link>
                 </div> 
             </div>    
 
             <div className='col-12 col-md-6 mt-2 mt-md-0'>
-                <div className="input-group">
-                    <input type="text" id="search_field" class="form-control" placeholder='Que producto busca?'></input>
-                        <div className="input-group-append">
-                            <button id="search-btn" class="btn">
-                                <i class="fa fa-search-plus fa-2x text-white" aria-hidden="true"></i>
-                            </button>
-                        </div>  
-                </div>
+                {/*Aqui va buscar*/}
+                <Search />
+                
             </div>
             
 

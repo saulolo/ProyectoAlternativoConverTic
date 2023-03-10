@@ -7,20 +7,20 @@ const fetch = (url) => import('node-fetch').then(({ default: fetch }) => fetch(u
 
 //[25]
 /* VER LA LISTA DE TODOS LOS PRODUCTOS */
-exports.getProducts = catchAsyncErrors(async(req, res, next) => {  //[26] y [78]
+exports.getProducts = catchAsyncErrors(async (req, res, next) => {  //[26] y [78]
     
     //Paginación
     const resPerPage = 4;
     const productsCount = await producto.countDocuments();
 
-    const apiFeatures= new APIFeatures(producto.find(), req.query)
+    const apiFeatures = new APIFeatures(producto.find(), req.query)
         .search()
-        .filter()
+        .filter();
 
-    let products= await apiFeatures.query;
-    let filteredProductsCount = products.length;
+    let products = await apiFeatures.query;
+    let filteredProductsCount= products.length;
     apiFeatures.pagination(resPerPage)
-    products=await apiFeatures.query.clone();
+    products = await apiFeatures.query.clone();
 
     res.status(200).json({ 
         success: true,
@@ -30,26 +30,14 @@ exports.getProducts = catchAsyncErrors(async(req, res, next) => {  //[26] y [78]
         products
     })
 
-    
-    const productos=await producto.find();    //[79] 
-    
-    if(!productos){  //[81.2] 
-        return next(new ErrorHandler("Información no encontrada", 404)) 
-        }
-
-    res.status(200).json({  //[27]
-        success: true,
-        cantidad: productos.length,  //[80] 
-        productos
-    })
 })  //[28]
 
 
 /* VER UN PRODUCTO POR ID */ //[81]
-exports.getProductById = catchAsyncErrors( async(req,res, next) => {  
-    const product= await producto.findById(req.params.id);  //[81.1]  
+exports.getProductById = catchAsyncErrors(async (req, res, next) => {  
+    const product = await producto.findById(req.params.id);  //[81.1]  
 
-    if(!product){  //[81.2] 
+    if (!product) {  //[81.2] 
         return next(new ErrorHandler("Producto no encontrado", 404)) 
         }
     
@@ -63,10 +51,10 @@ exports.getProductById = catchAsyncErrors( async(req,res, next) => {
 
 //[84] Tipos de Variables
 /* ACTUALIZAR (UPDATE) A UN PRODUCTO */  //[85]
-exports.updateProduct= catchAsyncErrors (async(req,res, next) => {
-    let product=await producto.findById(req.params.id);   //[85.1] 
+exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
+    let product = await producto.findById(req.params.id);   //[85.1] 
     
-    if(!product){  //[81.2] 
+    if (!product) {  //[81.2] 
         return next(new ErrorHandler("Producto no encontrado", 404)) 
         }
     //[85.3] 
@@ -83,27 +71,27 @@ exports.updateProduct= catchAsyncErrors (async(req,res, next) => {
 
 
 /* ELIMINAR A UN PRODUCTO */ //[89]
-exports.deleteProduct= catchAsyncErrors (async(req,res, next) => {
-    const product=await producto.findById(req.params.id);   //[89.1] 
+exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
+    const product = await producto.findById(req.params.id);   //[89.1] 
     
-    if(!product){ 
+    if (!product) { 
         return next(new ErrorHandler("Producto no encontrado", 404)) 
         }
 
     await product.remove();//[89.2] 
     res.status(200).json({ 
         success: true,
-        message:"Producto elimnado correctamente",
+        message: "Producto eliminado correctamente",
     })    
 })//[90] 
 
 
 /*CREAR NUEVO PRODUCTO */  //api/productos  [68]
-exports.newProduct=catchAsyncErrors( async(req,res, next) =>{  //[70]
-    req.body.user=req.user.id;
-    const product=await producto.create(req.body);  //[71] 
+exports.newProduct = catchAsyncErrors(async (req, res, next) =>{  //[70]
+    req.body.user = req.user.id;
+    const product = await producto.create(req.body);  //[71] 
     res.status(201).json({  //[72] 
-        success:true,  //[72.1] 
+        success: true,  //[72.1] 
         product  //[72.2] 
     })
 })
@@ -140,7 +128,7 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
         product.calificacion = product.opiniones.reduce((acc, opinion) =>
         opinion.rating + acc, 0) / product.opiniones.length
 
-        await product.save( {validateBeforeSave: false });
+        await product.save({ validateBeforeSave: false });
 
         res.status(200).json({
             success: true,
@@ -167,7 +155,7 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
 
     const numCalificaciones = opiniones.length;
 
-    const calificacion = product.opiniones.reduce((acc, Opinion) =>
+    const calificacion = opiniones.reduce((acc, Opinion) =>
         Opinion.rating + acc, 0) / opiniones.length;
 
     await producto.findByIdAndUpdate(req.query.idProducto, {
@@ -183,6 +171,17 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
         success: true,
         message: "review eliminada correctamente"
     })
+})
+
+//Ver la lista de productos (Admin)
+exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+
+    const products = await producto.find()
+
+    res.status(200).json({
+        products
+    })
+
 })
 
 
