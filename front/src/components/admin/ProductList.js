@@ -6,11 +6,6 @@ import Sidebar from './Sidebar'
 import { MDBDataTable } from 'mdbreact'
 import MetaData from '../layout/MetaData'
 
-
-
-
-
-
 export const ProductList = () => {
     const { loading, productos, error } = useSelector(state => state.products) 
     const alert = useAlert();

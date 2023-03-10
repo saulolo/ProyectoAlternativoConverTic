@@ -7,6 +7,7 @@ import { ProductDetails } from './components/products/ProductDetails';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/admin/Dashboard';    
 import { ProductList } from './components/admin/ProductList';
+import { Login } from './components/user/Login';
 
 
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/productList" element={<ProductList />} />
             <Route path="/search/:keyword" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             
             
         </Routes>

@@ -19,7 +19,7 @@ search(){
 filter(){
     const queryCopy = { ...this.queryStr};
 
-    //eliminemos los campos que vienen de otras consultas
+    //elimino los campos que vienen de otras consultas
     const removeFields= ["keyword", "limit", "page"]
     removeFields.forEach(el => delete queryCopy[el])
 
