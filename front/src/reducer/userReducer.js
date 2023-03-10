@@ -2,9 +2,9 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    // REGISTER_USER_REQUEST,
-    // REGISTER_USER_SUCCESS,
-    // REGISTER_USER_FAIL,
+    REGISTER_USER_REQUEST,
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_FAIL,
      CLEAR_ERRORS,
     // LOAD_USER_REQUEST,
     // LOAD_USER_FAIL,
@@ -46,7 +46,7 @@ export const authReducer = (state = { user: {} }, action) => {
     switch (action.type) {
 
         case LOGIN_REQUEST:
-        //case REGISTER_USER_REQUEST:
+        case REGISTER_USER_REQUEST:
         //case LOAD_USER_REQUEST:
             return {
                 loading: true,
@@ -54,7 +54,7 @@ export const authReducer = (state = { user: {} }, action) => {
             }
 
         case LOGIN_SUCCESS:
-        //case REGISTER_USER_SUCCESS:
+        case REGISTER_USER_SUCCESS:
         //case LOAD_USER_SUCCESS:
             return {
                 ...state,
@@ -85,7 +85,7 @@ export const authReducer = (state = { user: {} }, action) => {
         //     }
 
         case LOGIN_FAIL:
-        //case REGISTER_USER_FAIL:
+        case REGISTER_USER_FAIL:
             return {
                 ...state,
                 loading: false,

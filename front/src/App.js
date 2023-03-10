@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/admin/Dashboard';    
 import { ProductList } from './components/admin/ProductList';
 import { Login } from './components/user/Login';
+import { Register } from './components/user/Register';
 
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/productList" element={<ProductList />} />
             <Route path="/search/:keyword" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             
             
         </Routes>
