@@ -81,7 +81,7 @@ exports.forgotPassword = catchAsyncErrors ( async( req, res, next) =>{
     await user.save({validateBeforeSave: false})
 
     //Crear una url para hacer el reset de la contraseña
-    const resetUrl= `${req.protocol}://${req.get("host")}/api/resetPassword/${resetToken}`;
+    const resetUrl= `${req.protocol}://${req.get("host")}/resetPassword/${resetToken}`;
 
     const mensaje=`Hola!\n\nTu link para ajustar una nueva contraseña es el 
     siguiente: \n\n${resetUrl}\n\n
@@ -152,7 +152,7 @@ exports.updatePassword= catchAsyncErrors( async (req, res, next)=>{
     //Revisamos si la contraseña vieja es igual a la nueva
     const sonIguales = await user.compararPass(req.body.oldPassword)
 
-    if(!sonIguales){
+    if (!sonIguales){
         return next (new ErrorHandler("La contraseña actual no es correcta", 401))
     }
 
@@ -165,13 +165,29 @@ exports.updatePassword= catchAsyncErrors( async (req, res, next)=>{
 
 //UPDATE PERFIL DE USUARIO (logueado)
 exports.updateProfile= catchAsyncErrors(async(req,res,next)=>{
-    //Actualizar el email por user a desición de cada uno
+    //Actualizar el email por user a decisión de cada uno
     const newUserData ={
         nombre: req.body.nombre,
         email: req.body.email
     }
 
-    //Update Avatar: pendiente
+    //Update Avatar
+    if (req.body.avatar !==""){
+        const user= await User.findById(req.user.id)
+        const image_id= user.avatar.public_id;
+        const res= await cloudinary.v2.uploader.destroy(image_id);
+
+        const result= await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+            width: 240,
+            crop: "scale"
+        })
+
+        newUserData.avatar={
+            public_id: result.public_id,
+            url: result.secure_url
+        }
+    }
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new:true,
@@ -207,7 +223,7 @@ exports.getUserDetails= catchAsyncErrors(async(req, res, next)=>{
     }
 
     res.status(200).json({
-        success:true,
+        success: true,
         user
     })
 })
@@ -220,7 +236,7 @@ exports.updateUser= catchAsyncErrors (async(req, res, next)=>{
         role: req.body.role
     }
 
-    const user= await User.findByIdAndUpdate(req.params.id,nuevaData, {
+    const user= await User.findByIdAndUpdate(req.params.id, nuevaData, {
         new: true,
         runValidators: true,
         useFindAndModify: false
