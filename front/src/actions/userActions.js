@@ -8,11 +8,11 @@ import {
     REGISTER_USER_REQUEST,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAIL,
-    // LOAD_USER_REQUEST,
-    // LOAD_USER_SUCCESS,
-    // LOAD_USER_FAIL,
-    // LOGOUT_SUCCESS,
-    // LOGOUT_FAIL,
+    LOAD_USER_REQUEST,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAIL,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
     // UPDATE_PROFILE_REQUEST,
     // UPDATE_PROFILE_SUCCESS,
     // UPDATE_PROFILE_FAIL,
@@ -89,22 +89,22 @@ export const login = (email, password) => async (dispatch) => {
      }
  }
 
-// //CARGAR EL USUARIO (LOAD USER)
-// export const loadUser=()=> async(dispatch) =>{
-//     try{
-//         dispatch({type: LOAD_USER_REQUEST})
-//         const {data} = await axios.get("/api/yo")
-//         dispatch({
-//             type: LOAD_USER_SUCCESS,
-//             payload: data.user
-//         })
-//     }catch(error){
-//         dispatch({
-//             type: LOAD_USER_FAIL,
-//             payload: error.response.data.message
-//         })
-//     }
-// }
+//CARGAR EL USUARIO (LOAD USER)
+export const loadUser=()=> async(dispatch) =>{
+    try{
+        dispatch({type: LOAD_USER_REQUEST})
+        const {data} = await axios.get("/api/yo")
+        dispatch({
+            type: LOAD_USER_SUCCESS,
+            payload: data.user
+        })
+    }catch(error){
+        dispatch({
+            type: LOAD_USER_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
 
 // //ACTUALIZAR USUARIO
@@ -132,20 +132,20 @@ export const login = (email, password) => async (dispatch) => {
 //     }
 // }
 
-// //logout User
-// export const logout = () => async (dispatch)=>{
-//     try{
-//         await axios.get("/api/logout")
-//         dispatch({
-//             type: LOGOUT_SUCCESS,
-//         })
-//     } catch(error){
-//         dispatch({
-//             type:LOGOUT_FAIL,
-//             payload: error.response.data.message
-//         })
-//     }
-// }
+//logout User
+export const logout = () => async (dispatch)=>{
+    try{
+        await axios.get("/api/logout")
+        dispatch({
+            type: LOGOUT_SUCCESS,
+        })
+    } catch(error){
+        dispatch({
+            type:LOGOUT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
 // //ACTUALIZAR CONTRASEÑA
 // export const updatePassword = (passwords) => async (dispatch) => {

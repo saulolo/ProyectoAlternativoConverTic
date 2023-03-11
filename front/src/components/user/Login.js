@@ -5,7 +5,7 @@ import { login, clearErrors } from "../../actions/userActions"
 import { useDispatch, useSelector } from 'react-redux'
 
 export const Login = () => {
-    const navigate = useNavigate();
+     const navigate = useNavigate();
      const [email, setEmail] = useState("")
      const [password, setPassword] = useState("")
      const dispatch = useDispatch();
@@ -41,7 +41,7 @@ export const Login = () => {
                                         id="email_field"
                                         className='form-control'
                                         value={email}
-                                        onChange={(e)=> setEmail(e.target.value)}></input>
+                                        onChange={(e) => setEmail(e.target.value)}></input>
                                 </div>
                                 {/*Campo para contraseña*/}
                                 <div className='form-group'>
@@ -50,7 +50,7 @@ export const Login = () => {
                                         id="password_field"
                                         className='form-control'
                                         value={password}
-                                        onChange={(e)=> setPassword(e.target.value)}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         ></input>
                                 </div>
 
