@@ -17,6 +17,7 @@ import { UpdateProfile } from './components/user/UpdateProfile';
 import { UpdatePassword } from './components/user/UpdatePassword';
 import { ForgotPassword } from './components/user/ForgotPassword';
 import { NewPassword } from './components/user/NewPassword';
+import Cart from './components/cart/Cart';
 //import ProtectedRoute from './routes/ProtectedRoute';
 
 
@@ -47,6 +48,7 @@ function App() {
             <Route path="/yo" element={<Profile />} />
             <Route path="/yo/update" element={< UpdateProfile/>} />
             <Route path="/password/update" element={<UpdatePassword />} />
+            <Route path="/carrito" element={<Cart />} />
             
             
             {/*Ruta Protegida (falta proteger*/}
