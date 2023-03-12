@@ -7,7 +7,6 @@ import { ProductDetails } from './components/products/ProductDetails';
 //Router traido desde react-router-dom (no confundir con el de express)
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/admin/Dashboard';
-import { ProductList } from './components/admin/ProductList';
 import { Login } from './components/user/Login';
 import { Register } from './components/user/Register';
 import { loadUser } from './actions/userActions';
@@ -18,6 +17,7 @@ import { UpdatePassword } from './components/user/UpdatePassword';
 import { ForgotPassword } from './components/user/ForgotPassword';
 import { NewPassword } from './components/user/NewPassword';
 import Cart from './components/cart/Cart';
+import ProductsList from './components/admin/ProductsList';
 //import ProtectedRoute from './routes/ProtectedRoute';
 
 
@@ -39,7 +39,7 @@ function App() {
             <Route path="/" element={<Home />} /> {/*[131 y 136]*/}
             <Route path="/Home" element={<Home />} />
             <Route path="/producto/:id" element={<ProductDetails />} />
-            <Route path="/productList" element={<ProductList />} />
+            <Route path="/productList" element={<ProductsList />} />
             <Route path="/search/:keyword" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
