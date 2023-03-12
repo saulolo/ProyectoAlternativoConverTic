@@ -11,9 +11,9 @@ import {  //[163.1]
     ADMIN_PRODUCTS_REQUEST,
     ADMIN_PRODUCTS_SUCCESS,
     ADMIN_PRODUCTS_FAIL,
-    // NEW_PRODUCT_REQUEST,
-    // NEW_PRODUCT_SUCCESS,
-    // NEW_PRODUCT_FAIL,
+    NEW_PRODUCT_REQUEST,
+    NEW_PRODUCT_SUCCESS,
+    NEW_PRODUCT_FAIL,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAIL,
     DELETE_PRODUCT_REQUEST,
@@ -31,6 +31,8 @@ import {  //[163.1]
     // DELETE_REVIEW_FAIL
 } from '../constants/productConstants';
 
+
+//VER TODOS LOS PRODUCTOS
 export const getProducts = (currentPage = 1, keyword = '', precio) => async (dispatch) =>{ //[164] 
     try {
         dispatch({ type: ALL_PRODUCTS_REQUEST })
@@ -51,7 +53,7 @@ export const getProducts = (currentPage = 1, keyword = '', precio) => async (dis
     }  
 }
 
-//ADMIN - get products
+//VER PRODUCTOS (DESDE EL ADMIN)
 export const getAdminProducts = () => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_PRODUCTS_REQUEST })
@@ -89,6 +91,34 @@ export const getProductDetails = (id) => async (dispatch) => {
         })
     }
 }
+
+
+//NUEVO PRODUCTO -ADMIN
+export const newProduct = ( productData ) => async (dispatch)=>{
+    try {
+        dispatch({type: NEW_PRODUCT_REQUEST})
+
+        const config ={ 
+            header: { 
+                'Content-Type':'application/json'
+            }
+        }
+
+        const {data} = await axios.post('/api/producto/nuevo', productData, config)
+
+        dispatch({
+            type: NEW_PRODUCT_SUCCESS,
+            payload: data
+        })
+    }catch(error){
+        dispatch({
+            type: NEW_PRODUCT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+
 
 //Eliminar un producto (admin)
 export const deleteProduct = (id) => async(dispatch)=>{

@@ -18,6 +18,7 @@ import { ForgotPassword } from './components/user/ForgotPassword';
 import { NewPassword } from './components/user/NewPassword';
 import Cart from './components/cart/Cart';
 import ProductsList from './components/admin/ProductsList';
+import NewProduct from './components/admin/NewProduct';
 //import ProtectedRoute from './routes/ProtectedRoute';
 
 
@@ -40,6 +41,9 @@ function App() {
             <Route path="/Home" element={<Home />} />
             <Route path="/producto/:id" element={<ProductDetails />} />
             <Route path="/productList" element={<ProductsList />} />
+            <Route path="/productList" element={<ProductsList />} />
+            <Route path="/nuevoProducto" element={<NewProduct />} />
+
             <Route path="/search/:keyword" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

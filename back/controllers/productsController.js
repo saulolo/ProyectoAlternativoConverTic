@@ -3,7 +3,7 @@ const producto = require("../models/productos"); //[69]
 const APIFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 const fetch = (url) => import('node-fetch').then(({ default: fetch }) => fetch(url));//[93]
-
+const cloudinary=require("cloudinary")
 
 //[25]
 /* VER LA LISTA DE TODOS LOS PRODUCTOS */
@@ -173,6 +173,7 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
         message: "review eliminada correctamente"
     })
 })
+
 
 //Ver la lista de productos (Admin)
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
