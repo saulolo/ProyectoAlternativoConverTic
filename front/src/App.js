@@ -21,15 +21,14 @@ import Cart from './components/cart/Cart';
 import ProductsList from './components/admin/ProductsList';
 import NewProduct from './components/admin/NewProduct';
 import { UpdateProduct } from './components/admin/UpdateProduct';
-//import Shipping from './components/cart/Shipping';
-
+import Shipping from './components/cart/Shipping';
+import { ConfirmOrder } from './components/cart/ConfirmOrder';
+import { Payment } from './components/cart/Payment';
+import { Success } from './components/cart/Success';
 
 
 
 //import ProtectedRoute from './routes/ProtectedRoute';
-
-
-
 
 
 //[112], [115] y [129]
@@ -61,7 +60,10 @@ function App() {
             <Route path="/password/update" element={<UpdatePassword />} />
             <Route path="/carrito" element={<Cart />} />
             <Route path="/updateProduct/:id" element={<UpdateProduct />} />
-            {/* <Route path="/shipping" element={<Shipping />} /> */}
+            <Route path="/shipping" element={<Shipping />} /> 
+            <Route path="/order/confirm" element={<ConfirmOrder />} /> 
+            <Route path="/payment" element={<Payment />} /> 
+            <Route path="/success" element={<Success />} /> 
 
 
             
