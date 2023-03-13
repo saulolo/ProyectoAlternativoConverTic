@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useEffect } from 'react';
 import Header from './components/layout/Header';
+//import ProtectedRoute from './routes/ProtectedRoute';
 import { Footer } from './components/layout/Footer';
 import Home from './components/Home';
 import { ProductDetails } from './components/products/ProductDetails';
@@ -19,6 +20,12 @@ import { NewPassword } from './components/user/NewPassword';
 import Cart from './components/cart/Cart';
 import ProductsList from './components/admin/ProductsList';
 import NewProduct from './components/admin/NewProduct';
+import { UpdateProduct } from './components/admin/UpdateProduct';
+//import Shipping from './components/cart/Shipping';
+
+
+
+
 //import ProtectedRoute from './routes/ProtectedRoute';
 
 
@@ -53,15 +60,23 @@ function App() {
             <Route path="/yo/update" element={< UpdateProfile/>} />
             <Route path="/password/update" element={<UpdatePassword />} />
             <Route path="/carrito" element={<Cart />} />
+            <Route path="/updateProduct/:id" element={<UpdateProduct />} />
+            {/* <Route path="/shipping" element={<Shipping />} /> */}
+
+
             
-            
-            {/*Ruta Protegida (falta proteger*/}
+
+            {/*Nota: no me deja proteger las rutas*/}
+            {/*Ruta Protegida (falta proteger)*/}
             <Route path="/dashboard" element={<Dashboard />} />
             {/*Asi se protegeria pero se me cae*/}
             {/* <Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard /></ProtectedRoute>} /> */}
 
-            
 
+
+ 
+
+          
             
             
         </Routes>

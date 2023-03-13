@@ -49,7 +49,7 @@ const Cart = () => {
                     <div className="row d-flex justify-content-between">
                         <div className="col-12 col-lg-8">
 
-                        {cartItems.map(item => (
+                        {cartItems && cartItems.map(item => (
                                 <Fragment>
                                     <hr />
 
@@ -60,7 +60,7 @@ const Cart = () => {
                                             </div>
 
                                             <div className="col-5 col-lg-3">
-                                                <Link to={`/producto/${item._id}`}>{item.nombre}</Link>
+                                                <Link to={`/producto/${item.product}`}>{item.nombre}</Link>
                                             </div>
 
 

@@ -14,13 +14,13 @@ import {
     NEW_PRODUCT_SUCCESS,
     NEW_PRODUCT_FAIL,
     NEW_PRODUCT_RESET,
-    // DELETE_PRODUCT_REQUEST,
-    // DELETE_PRODUCT_SUCCESS,
-    // DELETE_PRODUCT_FAIL,
-    // UPDATE_PRODUCT_REQUEST,
-    // UPDATE_PRODUCT_SUCCESS,
-    // UPDATE_PRODUCT_FAIL,
-    // UPDATE_PRODUCT_RESET,
+    DELETE_PRODUCT_REQUEST,
+    DELETE_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_FAIL,
+    UPDATE_PRODUCT_REQUEST,
+    UPDATE_PRODUCT_SUCCESS,
+    UPDATE_PRODUCT_FAIL,
+    UPDATE_PRODUCT_RESET,
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_FAIL,
@@ -36,13 +36,13 @@ import {
 
 
     //REDUCER PARA VER PRODUCTOS
-export const productReducer = (state ={products: []}, action)=> {  //[149.1] 
-    switch(action.type) { //[149.2] 
+export const productsReducer = (state = { products: [] }, action) => {  //[149.1] 
+    switch (action.type) { //[149.2] 
         case ALL_PRODUCTS_REQUEST: //[149.3] 
         case ADMIN_PRODUCTS_REQUEST:
-            return{
-                loading:true,
-                products:[]
+            return {
+                loading: true,
+                products: []
             }
 
         case ALL_PRODUCTS_SUCCESS:  //[150]
@@ -55,22 +55,22 @@ export const productReducer = (state ={products: []}, action)=> {  //[149.1]
             }
 
         case ADMIN_PRODUCTS_SUCCESS:
-            return{
+            return {
                 loading: false,
                 products: action.payload
             }    
 
         case ALL_PRODUCTS_FAIL: //[160]
         case ADMIN_PRODUCTS_FAIL:
-            return{
-                loading:false,
+            return {
+                loading: false,
                 error: action.payload //[160.1]
             }
 
         case CLEAR_ERRORS: //[161]
-            return{
+            return {
                 ...state, //[161.1]
-                error:null  //[161.2]
+                error: null  //[161.2]
             }
 
         default:
@@ -80,9 +80,8 @@ export const productReducer = (state ={products: []}, action)=> {  //[149.1]
 
 //REDUCER PARA VER TODOS LOS DETALLES
 export const productDetailsReducer = (state = { product: {} }, action) => {  
-    console.log({action})
-    console.log({j:action.payload})
     switch (action.type) { 
+       
         case PRODUCT_DETAILS_REQUEST: 
             return {
                 ...state,
@@ -150,6 +149,56 @@ export const newProductReducer = (state={ product:{} }, action )=>{
             return state
     }
 }
+
+//REDUCER PARA ELIMINAR Y ACTUALIZAR UN PRODUCTO
+export const productReducer= (state = {}, action)=>{
+    switch(action.type){
+        case DELETE_PRODUCT_REQUEST:
+        case UPDATE_PRODUCT_REQUEST:
+            return{
+                ...state, 
+                loading:true
+            }
+        case DELETE_PRODUCT_SUCCESS:
+            return{
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+
+        case UPDATE_PRODUCT_SUCCESS:
+            return{
+                ...state,
+                loading: false,
+                isUpdated: action.payload
+            }
+            
+        case DELETE_PRODUCT_FAIL:
+        case UPDATE_PRODUCT_FAIL:
+            return{
+                ...state,
+                error: action.payload
+            }
+            
+        case UPDATE_PRODUCT_RESET:
+            return{
+                ...state,
+                isUpdated: false
+            }
+        case CLEAR_ERRORS:
+            return {
+                error:null
+            }
+        default:
+            return state
+    }
+}
+
+
+
+
+
+
 
 
 //REDUCER PARA DEJAR UNA OPINION (REVIEW) Y CALIFICACION (RATING)

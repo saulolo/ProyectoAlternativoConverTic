@@ -57,6 +57,33 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     if (!product) {  //[81.2] 
         return next(new ErrorHandler("Producto no encontrado", 404)) 
         }
+
+        let imagen=[]
+
+        if (typeof req.body.imagen=="string"){
+            imagen.push(req.body.imagen)
+        }else{
+            imagen=req.body.imagen
+        }
+        if (imagen!== undefined){
+            //eliminar imagenes asociadas con el product
+            for (let i=0; i<product.imagen.lenght; i++){
+                const result= await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+            }
+    
+            let imageLinks=[]
+            for (let i=0; i<imagen.lenght; i++){
+                const result=await cloudinary.v2.uploader.upload(imagen[i],{
+                    folder:"products"
+                });
+                imageLinks.push({
+                    public_id:result.public_id,
+                    url: result.secure_url
+                })
+            }
+            req.body.imagen=imageLinks
+        }
+
     //[85.3] 
     product = await producto.findByIdAndUpdate(req.params.id, req.body, { //[85.4] 
         new: true, //[85.5]
@@ -70,7 +97,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 }) //[86] 
 
 
-/* ELIMINAR A UN PRODUCTO */ //[89]
+/* ELIMINAR UN PRODUCTO */ //[89]
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
     const product = await producto.findById(req.params.id);   //[89.1] 
     

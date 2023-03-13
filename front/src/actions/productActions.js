@@ -17,12 +17,12 @@ import {  //[163.1]
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAIL,
     DELETE_PRODUCT_REQUEST,
-    // UPDATE_PRODUCT_REQUEST,
-    // UPDATE_PRODUCT_SUCCESS,
+    UPDATE_PRODUCT_REQUEST,
+    UPDATE_PRODUCT_SUCCESS,
+    UPDATE_PRODUCT_FAIL,
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_FAIL,
-    // UPDATE_PRODUCT_FAIL,
     // GET_REVIEWS_REQUEST,
     // GET_REVIEWS_SUCCESS,
     // GET_REVIEWS_FAIL,
@@ -53,7 +53,7 @@ export const getProducts = (currentPage = 1, keyword = '', precio) => async (dis
     }  
 }
 
-//VER PRODUCTOS (DESDE EL ADMIN)
+//VER PRODUCTOS (ADMIN)
 export const getAdminProducts = () => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_PRODUCTS_REQUEST })
@@ -93,7 +93,7 @@ export const getProductDetails = (id) => async (dispatch) => {
 }
 
 
-//NUEVO PRODUCTO -ADMIN
+//CREAR NUEVO PRODUCTO (ADMIN)
 export const newProduct = ( productData ) => async (dispatch)=>{
     try {
         dispatch({type: NEW_PRODUCT_REQUEST})
@@ -119,8 +119,7 @@ export const newProduct = ( productData ) => async (dispatch)=>{
 }
 
 
-
-//Eliminar un producto (admin)
+//ELIMINAR UN PRODUCTO (ADMIN)
 export const deleteProduct = (id) => async(dispatch)=>{
     try{
         dispatch ({type: DELETE_PRODUCT_REQUEST})
@@ -137,6 +136,33 @@ export const deleteProduct = (id) => async(dispatch)=>{
         })
     }
 }
+
+
+//ACTUALIZAR UN PRODUCTO (ADMIN)
+export const updateProduct = (id, productData) => async (dispatch) =>{
+    try{
+        dispatch ({type: UPDATE_PRODUCT_REQUEST})
+
+        const config={
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        const {data} = await axios.put(`/api/producto/${id}`, productData, config)
+
+        dispatch({
+            type: UPDATE_PRODUCT_SUCCESS,
+            payload: data.success
+        })
+        
+    } catch(error){
+        dispatch({
+            type: UPDATE_PRODUCT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
 
 //Registar una review
 export const newReview = (reviewData) => async (dispatch) => {
