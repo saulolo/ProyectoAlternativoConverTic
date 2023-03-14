@@ -1,19 +1,25 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProductDetails, clearErrors } from '../../actions/productActions'
+import { getProductDetails, clearErrors, newReview } from '../../actions/productActions'
 import MetaData from '../layout/MetaData'
 import { useParams} from "react-router-dom"
 import { useAlert } from 'react-alert'
 import { Carousel } from 'react-bootstrap'
 import { addItemToCart } from '../../actions/cartActions'
+import { NEW_REVIEW_RESET } from '../../constants/productConstants'
+import ListReviews from '../order/ListReviews'
 
 export const ProductDetails = () => {
+  const { error: reviewError, success} =useSelector(state => state.newReview)
+  const { user } = useSelector(state => state.auth)
   const { loading, error, product } = useSelector(state => state.productDetails)
   console.log({product})
   const {id} = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
   const [quantity, setQuantity] = useState(1)
+  const[rating, setRating] = useState(0)
+  const[comentario, setComentario] = useState("")
 
 
   useEffect(() => {
@@ -23,7 +29,18 @@ export const ProductDetails = () => {
       alert.error(error);
       dispatch(clearErrors())
     }
-  }, [dispatch, alert, error, id])
+
+    if (reviewError) {
+      alert.error(reviewError);
+      dispatch(clearErrors())
+  }
+
+  if (success) {
+      alert.success('Opinion registrada correctamente')
+      dispatch({ type: NEW_REVIEW_RESET })
+  }
+
+  }, [dispatch, alert, error, id, reviewError, success]);
 
   const increaseQty = () => {
     const contador = document.querySelector('.count')
@@ -47,6 +64,55 @@ export const ProductDetails = () => {
     dispatch(addItemToCart(id, quantity));
     alert.success('Producto agregado al carro')
   }
+
+  function setUserRating() {
+    const stars = document.querySelectorAll('.star');
+
+    stars.forEach((star, index) => {
+      star.starValue = index + 1;
+
+      ['click', 'mouseover', 'mouseout'].forEach(function (e) {
+        star.addEventListener(e, showRatings);
+      })
+    })
+
+    function showRatings(e) {
+      stars.forEach((star, index) => {
+        if (e.type === 'click') {
+          if (index < this.starValue) {
+            star.classList.add('orange');
+
+            setRating(this.starValue)
+          } else {
+            star.classList.remove('orange')
+          }
+        }
+
+        if (e.type === 'mouseover') {
+          if (index < this.starValue) {
+            star.classList.add('yellow');
+          } else {
+            star.classList.remove('yellow')
+          }
+        }
+
+        if (e.type === 'mouseout') {
+          star.classList.remove('yellow')
+        }
+      })
+    }
+  }
+
+  const reviewHandler = () => {
+    const formData = new FormData();
+
+    formData.set('rating', rating);
+    formData.set('comentario', comentario);
+    formData.set('idProducto', id);
+
+    dispatch(newReview(formData));
+  }
+
 
 
 
@@ -90,9 +156,13 @@ export const ProductDetails = () => {
               <p>{product.descripcion}</p>
               <hr />
               <p id="vendedor">Vendido por: <strong>{product.vendedor}</strong></p>
+              
+              {user ? 
               <button id="btn_review" type='button' className="btn btn-primary mt-4"
-              data-toggle="modal" data-target="#ratingModal">Deja tu Opinión</button>
+              data-toggle="modal" data-target="#ratingModal" onClick={setUserRating}>Deja tu Opinión</button>
+              :
               <div className="alert alert-danger mt-5" type="alert">Inicia Sesión para dejar tu review</div>
+              }
 
               {/*Mensaje emergente para dejar opinion y calificación*/}
               <div className="row mt-2 mb-5">
@@ -119,10 +189,12 @@ export const ProductDetails = () => {
                           <textarea name="review"
                           id="review"
                           className="form-control mt3"
+                          value={comentario}
+                          onChange={(e) => setComentario(e.target.value)}
                           ></textarea>
 
                           <button className="btn my-3 float-right review-btn px-4 text-white"
-                          data-dismiss="modal" aria-label="Close">Enviar</button>
+                          data-dismiss="modal" aria-label="Close" onClick={reviewHandler}>Enviar</button>
 
                       </div>
                     </div>
@@ -133,6 +205,12 @@ export const ProductDetails = () => {
             </div>
           </div>
         </div>
+
+        {product.opiniones && product.opiniones.length > 0 && (
+            <ListReviews opiniones={product.opiniones} />
+        )}
+
+        
         </Fragment>
       )}
     </Fragment>

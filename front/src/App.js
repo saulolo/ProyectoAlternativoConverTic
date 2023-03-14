@@ -25,6 +25,8 @@ import Shipping from './components/cart/Shipping';
 import { ConfirmOrder } from './components/cart/ConfirmOrder';
 import { Payment } from './components/cart/Payment';
 import { Success } from './components/cart/Success';
+import { ListOrder } from './components/order/ListOrder';
+import { OrderDetails } from './components/order/OrderDetails';
 
 
 
@@ -64,6 +66,8 @@ function App() {
             <Route path="/order/confirm" element={<ConfirmOrder />} /> 
             <Route path="/payment" element={<Payment />} /> 
             <Route path="/success" element={<Success />} /> 
+            <Route path="/myOrders" element={<ListOrder />} /> 
+            <Route path="/order/:id" element={<OrderDetails />} /> 
 
 
             
