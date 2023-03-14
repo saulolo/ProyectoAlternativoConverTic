@@ -3,8 +3,8 @@ const connectDatabase = require("./config/database"); //[49]
 const cloudinary= require("cloudinary")
 
 //Setear el archivo de configuración
-const dotenv=require("dotenv"); //[17] 
-dotenv.config({path:'back/config/config.env'}) //[18] 
+if(process.env.NODE_ENV==="PRODUCTION") require('dotenv').config({path:'back/config/config.env'}) //[17] 
+//dotenv.config({path:'back/config/config.env'}) //[18] 
 
 //Configurar BD [48] importo el metodo creado y este me trae la importación [49]
 connectDatabase();

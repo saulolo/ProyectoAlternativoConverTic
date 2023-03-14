@@ -10,7 +10,7 @@ const productosSchema=mongoose.Schema({   //[52]
     precio:{   //[54] 
         type: Number, //[54.1] 
         required:[true,"Por favor registre el precio del producto."],
-        maxLength:[8, "El precio del producto no puede estar por encima de  99'999'999."],
+        maxLength:[8, "El precio del producto no puede estar por encima de  99'999.999"],
         default: 0.0//[54.2] 
     },
     descripcion:{ //[55] 
@@ -52,10 +52,10 @@ const productosSchema=mongoose.Schema({   //[52]
         type:String,
         required:[true,"Por favor registre el vendedor del producto"]
     },
-    invetario:{  //[62] 
+    inventario:{  //[62] 
         type:Number,
         required:[true,"Por favor registre el stock del producto"],
-        maxLength:[5,"Cantiad máxima del producto no se puede sobreasar 99999"],
+        maxLength:[5,"Cantidad máxima del producto no se puede sobreasar 99999"],
         default:0
     },
     numCalificaciones:{  //[63] 

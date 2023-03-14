@@ -10,20 +10,19 @@ import { NEW_REVIEW_RESET } from '../../constants/productConstants'
 import ListReviews from '../order/ListReviews'
 
 export const ProductDetails = () => {
-  const { error: reviewError, success} =useSelector(state => state.newReview)
+  const { error: reviewError, success} = useSelector(state => state.newReview)
   const { user } = useSelector(state => state.auth)
   const { loading, error, product } = useSelector(state => state.productDetails)
-  console.log({product})
-  const {id} = useParams();
+  const params = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
   const [quantity, setQuantity] = useState(1)
   const[rating, setRating] = useState(0)
-  const[comentario, setComentario] = useState("")
+  const[comentario, setComentario] = useState('')
 
 
   useEffect(() => {
-    dispatch(getProductDetails(id))
+    dispatch(getProductDetails(params.id))
     
     if (error) {
       alert.error(error);
@@ -40,7 +39,7 @@ export const ProductDetails = () => {
       dispatch({ type: NEW_REVIEW_RESET })
   }
 
-  }, [dispatch, alert, error, id, reviewError, success]);
+  }, [dispatch, alert, error, params.id, reviewError, success]);
 
   const increaseQty = () => {
     const contador = document.querySelector('.count')
@@ -61,11 +60,11 @@ export const ProductDetails = () => {
   }
 
   const addToCart = () => {
-    dispatch(addItemToCart(id, quantity));
+    dispatch(addItemToCart(params.id, quantity));
     alert.success('Producto agregado al carro')
   }
 
-  function setUserRating() {
+  function setUserRatings() {
     const stars = document.querySelectorAll('.star');
 
     stars.forEach((star, index) => {
@@ -108,7 +107,7 @@ export const ProductDetails = () => {
 
     formData.set('rating', rating);
     formData.set('comentario', comentario);
-    formData.set('idProducto', id);
+    formData.set('idProducto', params.id);
 
     dispatch(newReview(formData));
   }
@@ -118,7 +117,7 @@ export const ProductDetails = () => {
 
   return (
     <Fragment>
-      {loading || !product ? <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> : (
+      {loading ? <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> : (
         <Fragment>
           <MetaData title={product.nombre}></MetaData>
           <div className='row d-flex justify-content-around'>
@@ -152,6 +151,8 @@ export const ProductDetails = () => {
               <hr />
               <p>Estado: <span id="stock_stado" className={product.inventario > 0 ? 'greenColor' : 'redColor'}>{product.inventario > 0 ? "En existencia" : "Agotado"}</span></p>
               <hr />
+              <p id="categoria">Categoria: <strong>{product.categoria}</strong></p>
+              <hr />
               <h4 className="mt-2">Descripción:</h4>
               <p>{product.descripcion}</p>
               <hr />
@@ -159,7 +160,7 @@ export const ProductDetails = () => {
               
               {user ? 
               <button id="btn_review" type='button' className="btn btn-primary mt-4"
-              data-toggle="modal" data-target="#ratingModal" onClick={setUserRating}>Deja tu Opinión</button>
+              data-toggle="modal" data-target="#ratingModal" onClick={setUserRatings}>Deja tu Opinión</button>
               :
               <div className="alert alert-danger mt-5" type="alert">Inicia Sesión para dejar tu review</div>
               }
@@ -194,7 +195,7 @@ export const ProductDetails = () => {
                           ></textarea>
 
                           <button className="btn my-3 float-right review-btn px-4 text-white"
-                          data-dismiss="modal" aria-label="Close" onClick={reviewHandler}>Enviar</button>
+                          onClick={reviewHandler} data-dismiss="modal" aria-label="Close">Enviar</button>
 
                       </div>
                     </div>

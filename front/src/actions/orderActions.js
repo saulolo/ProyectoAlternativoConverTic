@@ -11,15 +11,15 @@ import {
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
-    // ALL_ORDERS_REQUEST,
-    // ALL_ORDERS_SUCCESS,
-    // ALL_ORDERS_FAIL,
-    // UPDATE_ORDER_REQUEST,
-    // UPDATE_ORDER_SUCCESS,
-    // UPDATE_ORDER_FAIL,
-    // DELETE_ORDER_REQUEST,
-    // DELETE_ORDER_SUCCESS,
-    // DELETE_ORDER_FAIL
+    ALL_ORDERS_REQUEST,
+    ALL_ORDERS_SUCCESS,
+    ALL_ORDERS_FAIL,
+    UPDATE_ORDER_REQUEST,
+    UPDATE_ORDER_SUCCESS,
+    UPDATE_ORDER_FAIL,
+    DELETE_ORDER_REQUEST,
+    DELETE_ORDER_SUCCESS,
+    DELETE_ORDER_FAIL
 } from "../constants/orderConstants"
 
 
@@ -90,74 +90,75 @@ export const getOrderDetails = (id) => async (dispatch) => {
     }
 }
 
-// // VER TODAS LAS ORDENES- ADMIN
-// export const allOrders = () => async (dispatch) => {
-//     try {
+// VER TODAS LAS ORDENES- ADMIN
+export const allOrders = () => async (dispatch) => {
+    try {
 
-//         dispatch({ type: ALL_ORDERS_REQUEST });
+        dispatch({ type: ALL_ORDERS_REQUEST });
 
-//         const { data } = await axios.get(`/api/admin/orders`)
+        const { data } = await axios.get(`/api/admin/orders`)
 
-//         dispatch({
-//             type: ALL_ORDERS_SUCCESS,
-//             payload: data
-//         })
+        dispatch({
+            type: ALL_ORDERS_SUCCESS,
+            payload: data
+        })
 
-//     } catch (error) {
-//         dispatch({
-//             type: ALL_ORDERS_FAIL,
-//             payload: error.response.data.message
-//         })
-//     }
-// }
+    } catch (error) {
+        dispatch({
+            type: ALL_ORDERS_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
-// // update order
-// export const updateOrder = (id, orderData) => async (dispatch) => {
-//     try {
 
-//         dispatch({ type: UPDATE_ORDER_REQUEST })
+// update order
+export const updateOrder = (id, orderData) => async (dispatch) => {
+    try {
 
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         }
+        dispatch({ type: UPDATE_ORDER_REQUEST })
 
-//         const { data } = await axios.put(`/api/admin/order/${id}`, orderData, config)
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
 
-//         dispatch({
-//             type: UPDATE_ORDER_SUCCESS,
-//             payload: data.success
-//         })
+        const { data } = await axios.put(`/api/admin/order/${id}`, orderData, config)
 
-//     } catch (error) {
-//         dispatch({
-//             type: UPDATE_ORDER_FAIL,
-//             payload: error.response.data.message
-//         })
-//     }
-// }
+        dispatch({
+            type: UPDATE_ORDER_SUCCESS,
+            payload: data.success
+        })
 
-// // Delete order
-// export const deleteOrder = (id) => async (dispatch) => {
-//     try {
+    } catch (error) {
+        dispatch({
+            type: UPDATE_ORDER_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
-//         dispatch({ type: DELETE_ORDER_REQUEST })
+// Delete order
+export const deleteOrder = (id) => async (dispatch) => {
+    try {
 
-//         const { data } = await axios.delete(`/api/admin/order/${id}`)
+        dispatch({ type: DELETE_ORDER_REQUEST })
 
-//         dispatch({
-//             type: DELETE_ORDER_SUCCESS,
-//             payload: data.success
-//         })
+        const { data } = await axios.delete(`/api/admin/order/${id}`)
 
-//     } catch (error) {
-//         dispatch({
-//             type: DELETE_ORDER_FAIL,
-//             payload: error.response.data.message
-//         })
-//     }
-// }
+        dispatch({
+            type: DELETE_ORDER_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+        dispatch({
+            type: DELETE_ORDER_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 
 //Clear Errors
 export const clearErrors = ()=> async (dispatch) =>{

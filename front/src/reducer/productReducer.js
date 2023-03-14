@@ -25,13 +25,13 @@ import {
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_FAIL,
     NEW_REVIEW_RESET,
-    // GET_REVIEWS_REQUEST,
-    // GET_REVIEWS_SUCCESS,
-    // GET_REVIEWS_FAIL,
-    // DELETE_REVIEW_REQUEST,
-    // DELETE_REVIEW_SUCCESS,
-    // DELETE_REVIEW_RESET,
-    // DELETE_REVIEW_FAIL
+    GET_REVIEWS_REQUEST,
+    GET_REVIEWS_SUCCESS,
+    GET_REVIEWS_FAIL,
+    DELETE_REVIEW_REQUEST,
+    DELETE_REVIEW_SUCCESS,
+    DELETE_REVIEW_RESET,
+    DELETE_REVIEW_FAIL
  } from "../constants/productConstants";
 
 
@@ -195,12 +195,6 @@ export const productReducer= (state = {}, action)=>{
 }
 
 
-
-
-
-
-
-
 //REDUCER PARA DEJAR UNA OPINION (REVIEW) Y CALIFICACION (RATING)
 export const newReviewReducer = (state = {}, action) => {
     switch (action.type) {
@@ -240,73 +234,78 @@ export const newReviewReducer = (state = {}, action) => {
     }
 }
 
-// export const productReviewsReducer = (state = { opiniones: [] }, action) => {
-//     switch (action.type) {
 
-//         case GET_REVIEWS_REQUEST:
-//             return {
-//                 ...state,
-//                 loading: true
-//             }
 
-//         case GET_REVIEWS_SUCCESS:
-//             return {
-//                 loading: false,
-//                 opiniones: action.payload
-//             }
+//REDUCER PARA VER LAS REVIEWS
+export const productReviewsReducer = (state = { opiniones: [] }, action) => {
+    switch (action.type) {
 
-//         case GET_REVIEWS_FAIL:
-//             return {
-//                 ...state,
-//                 error: action.payload
-//             }
+        case GET_REVIEWS_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
 
-//         case CLEAR_ERRORS:
-//             return {
-//                 ...state,
-//                 error: null
-//             }
+        case GET_REVIEWS_SUCCESS:
+            return {
+                loading: false,
+                opiniones: action.payload
+            }
 
-//         default:
-//             return state
-//     }
-// }
+        case GET_REVIEWS_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
 
-// export const reviewReducer = (state = {}, action) => {
-//     switch (action.type) {
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
 
-//         case DELETE_REVIEW_REQUEST:
-//             return {
-//                 ...state,
-//                 loading: true
-//             }
+        default:
+            return state
+    }
+}
 
-//         case DELETE_REVIEW_SUCCESS:
-//             return {
-//                 ...state,
-//                 loading: false,
-//                 isDeleted: action.payload
-//             }
 
-//         case DELETE_REVIEW_FAIL:
-//             return {
-//                 ...state,
-//                 error: action.payload
-//             }
+//REDUCER PARA ELIMINAR LAS REVIEWS
+export const reviewReducer = (state = {}, action) => {
+    switch (action.type) {
 
-//         case DELETE_REVIEW_RESET:
-//             return {
-//                 ...state,
-//                 isDeleted: false
-//             }
+        case DELETE_REVIEW_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
 
-//         case CLEAR_ERRORS:
-//             return {
-//                 ...state,
-//                 error: null
-//             }
+        case DELETE_REVIEW_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
 
-//         default:
-//             return state
-//     }
-// }
+        case DELETE_REVIEW_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case DELETE_REVIEW_RESET:
+            return {
+                ...state,
+                isDeleted: false
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+
+        default:
+            return state
+    }
+}

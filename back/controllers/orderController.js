@@ -38,7 +38,7 @@ exports.getOneOrder= catchAsyncErrors(async(req, res, next)=>{
     const order= await Order.findById(req.params.id).populate("user", "nombre email")//Restricción de usuario
 
     if(!order){
-        return next(new ErrorHandler("No encontramos una orden con ese ID", 404))
+        return next(new ErrorHandler("No encontramos una orden con ese Id", 404))
     }
     res.status(200).json({
         success:true,
@@ -81,8 +81,15 @@ exports.updateOrder= catchAsyncErrors(async(req, res, next)=>{
         return next (new ErrorHandler("Orden no encontrada", 404))
     }
 
-    if(!order.estado==="Enviado"){
+    if(order.estado==="Enviado" && req.body.estado==="Enviado"){
         return next (new ErrorHandler("Esta orden ya fue enviada", 400))
+    }
+
+    //Restamos del inventario
+    if (req.body.estado!=="Procesando"){
+        order.items.forEach(async item => {
+            await updateStock(item.producto, item.cantidad)
+        })
     }
 
     order.estado= req.body.estado;
@@ -101,7 +108,7 @@ exports.updateOrder= catchAsyncErrors(async(req, res, next)=>{
 //Funcion para actualizar el Inventario
 async function updateStock(id, quantity){
     const product = await Product.findById(id);
-    product.invetario= product.invetario - quantity;
+    product.inventario= product.inventario-quantity;
     await product.save({validateBeforeSave: false})
 }
 
@@ -111,7 +118,7 @@ exports.deleteOrder = catchAsyncErrors(async (req, res, next)=>{
     const order = await Order.findById(req.params.id);
 
     if(!order){
-        return next (new ErrorHandler("Esta no esta registrada", 404))
+        return next (new ErrorHandler("Esa orden no esta registrada", 404))
     }
     await order.remove()
 

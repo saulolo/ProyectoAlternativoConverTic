@@ -135,7 +135,7 @@ exports.resetPassword = catchAsyncErrors(async (req,res,next) =>{
 })
 
 //VER PERFIL DE USUARIO (Usuario que esta logueado)
-exports.getUserProfile= catchAsyncErrors(async (req, res, next) =>{
+exports.getUserProfile= catchAsyncErrors( async (req, res, next) =>{
     const user= await User.findById(req.user.id);
 
     res.status(200).json({

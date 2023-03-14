@@ -21,15 +21,18 @@ import Cart from './components/cart/Cart';
 import ProductsList from './components/admin/ProductsList';
 import NewProduct from './components/admin/NewProduct';
 import { UpdateProduct } from './components/admin/UpdateProduct';
-import Shipping from './components/cart/Shipping';
+import { Shipping }  from './components/cart/Shipping';
 import { ConfirmOrder } from './components/cart/ConfirmOrder';
 import { Payment } from './components/cart/Payment';
 import { Success } from './components/cart/Success';
 import { ListOrder } from './components/order/ListOrder';
 import { OrderDetails } from './components/order/OrderDetails';
-
-
-
+import OrdersList from './components/admin/OrderList';
+import UsersList from './components/admin/UserList';
+import ProcessOrder from './components/admin/ProccessOrder';
+import UpdateUser from './components/admin/UpdateUser';
+import ProductReviews from './components/admin/ProductReviews';
+import { useSelector } from 'react-redux';
 //import ProtectedRoute from './routes/ProtectedRoute';
 
 
@@ -38,7 +41,7 @@ function App() {
   useEffect(() => {
     store.dispatch(loadUser())
   }, [])
-  //const {user, isAuthenticated, loading} = useSelector(state => state.auth)
+  const {user, isAuthenticated, loading} = useSelector(state => state.auth)
   return (
     <Router>  {/*[135]*/}
       <div className="App">
@@ -48,7 +51,6 @@ function App() {
             <Route path="/" element={<Home />} /> {/*[131 y 136]*/}
             <Route path="/Home" element={<Home />} />
             <Route path="/producto/:id" element={<ProductDetails />} />
-            <Route path="/productList" element={<ProductsList />} />
             <Route path="/productList" element={<ProductsList />} />
             <Route path="/nuevoProducto" element={<NewProduct />} />
 
@@ -68,26 +70,27 @@ function App() {
             <Route path="/success" element={<Success />} /> 
             <Route path="/myOrders" element={<ListOrder />} /> 
             <Route path="/order/:id" element={<OrderDetails />} /> 
+            <Route path="/orderList" element={<OrdersList />} /> 
+            <Route path="/admin/users" element={<UsersList />} /> 
+            <Route path="/admin/order/:id" element={<ProcessOrder />} /> 
+            <Route path="/admin/user/:id" element={<UpdateUser />} /> 
+            <Route path="/admin/reviews" element={<ProductReviews />} /> 
 
 
-            
+
+
 
             {/*Nota: no me deja proteger las rutas*/}
             {/*Ruta Protegida (falta proteger)*/}
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} /> 
             {/*Asi se protegeria pero se me cae*/}
-            {/* <Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard /></ProtectedRoute>} /> */}
+             {/*<Route path="/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard /></ProtectedRoute>} />  */}
 
-
-
- 
-
-          
-            
-            
         </Routes>
       </div>
+      {!loading && (!isAuthenticated || user.role!=="admin") &&(
       <Footer />
+      )}
     </div>
     </Router>
   );

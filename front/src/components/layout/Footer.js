@@ -5,7 +5,7 @@ export const Footer = () => {
     <Fragment>
         <footer className="py-1">
             <p className="text-center mt-1">
-            ©Copyright ConverTic - 2023
+            ©Copyright - 2023 - ConverTic - Saul Echeverri - Todos los derechos reservados
             </p>
         </footer>
     </Fragment> 
