@@ -10,7 +10,7 @@ const cloudinary=require("cloudinary")
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {  //[26] y [78]
     
     //Paginación
-    const resPerPage = 8;
+    const resPerPage = 4;
     const productsCount = await producto.countDocuments();
 
     const apiFeatures = new APIFeatures(producto.find(), req.query)
