@@ -93,7 +93,6 @@ exports.updateOrder= catchAsyncErrors(async(req, res, next)=>{
     }
 
     order.estado= req.body.estado;
-    order.fechaEnvio= Date.now();
 
     await order.save()
 
